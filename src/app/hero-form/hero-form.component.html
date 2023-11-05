@@ -1,0 +1,123 @@
+<div class="bg">
+
+  <main id="main2" class="form-contact">
+    <div class="container ">
+      <div [hidden]="submitted">
+
+        <h1 class="h3">Contact</h1>
+
+        <form #contactForm="ngForm" id="contact-form " class="" (ngSubmit)="onSubmit()">
+          <!--  <p class="jsonText ">{{ model | json }}</p> -->
+
+          <div class="form-floating" style="position: relative;">
+
+            <input type="text" id="firstName" (input)="changeCSSBorder(firstNameChildElement, firstName)" #firstNameTemplateVariable name="firstName" placeholder="Provide your first name"
+              class="form-control no-border" id="first-name" [formControl]="firstName">
+            <label for="first-name">First Name</label>
+ 
+            <div class="text-danger" id="first-name-state-validator"  *ngIf="!firstName.pristine && firstName.value == ''">
+              Name is required
+            </div>
+
+            <div class="text-danger" *ngIf="firstName?.errors?.['forbiddenName'] ">
+              Name cannot be Bob
+            </div>
+          </div>
+
+           <div class="form-floating" style="position: relative;">
+
+            <input type="text" name="lastName" (input)="changeCSSBorder(lastNameChildElement, lastName)" #lastNameTemplateVariable id="last-name" class="form-control no-border" placeholder="provide your last name"
+              [formControl]="lastName">
+            <label for="last-name">Last Name</label>
+
+            <div class="text-danger" *ngIf="!lastName.pristine && lastName.value == ''">
+              Last name is required
+            </div>
+
+          </div>
+
+          <div class="form-floating" style="position: relative;">
+
+            <input type="email" #emailTemplateVariable (input)="changeCSSBorder(emailChildElement, email)" [formControl]="email" name="email"  class="form-control no-border" placeholder="Provide your email"
+              id="email">
+            <label for="email">Email</label>
+
+           <div class="text-danger" *ngIf="!email.pristine && email.value == ''">
+              Email is required
+            </div>
+            <div class="text-danger" *ngIf="email.errors?.['email']">
+              Email format name@organization
+            </div>
+          </div>
+
+          <div class="form-floating" style="position: relative;">
+
+            <!-- always keep your textarea code on the same line - really... and it's 2023 -->
+            <textarea id="comment" name="comment" [value]="myValue" (input)="onValueChange($event); changeCSSBorder(commentChildElement, comment)" #commentTemplateVariable [formControl]="comment" name="name" class="form-control no-border" rows="6" maxlength="1000" placeholder="Provide a comment"></textarea>
+            <label for="comment">Comment</label>
+        
+          <div class="text-danger" [hidden]="comment.valid || comment.pristine">
+            Comment is required
+          </div>
+          </div>
+
+          <div class="form-group">
+            <p id="counter">Characters remaining: {{ counter }}</p>
+          </div>
+        
+          <div class="form-group">
+            <button type="submit" class="btn btn-success" (submit)="onSubmit()">Submit</button>
+            <button type="reset" class="btn btn-success">Reset</button>
+          </div>
+      
+      </form>
+
+    </div>
+</div>
+<!--     <div [hidden]="!submitted">
+      <h2>You submitted the following:</h2>
+      <div class="row">
+        <div class="col-xs-3">Name</div>
+        <div class="col-xs-9">{{ model.firstName }}</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">Name</div>
+        <div class="col-xs-9">{{ model.lastName }}</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">Alter Ego</div>
+        <div class="col-xs-9">{{ model.alterEgo }}</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">Power</div>
+        <div class="col-xs-9">{{ model.power }}</div>
+      </div>
+      <br>
+      <button type="button" class="btn w-100 btn-lg" (click)="submitted=false">Edit</button>
+
+    </div> -->
+
+  
+</main>
+<div class="outer-box" [hidden]="!submitted">
+  <div class="wrapper">
+    <div class="box">
+      <p>Thank You!</p>
+    </div>
+
+  </div>
+</div>
+<!-- <div class="c-subscribe-box u-align-center">
+  <div class="rainbow"><span></span><span></span></div>
+ <div class="c-subscribe-box__wrapper"> -->
+    <!--  <h3 class="c-subscribe-box__title">Join my newsletter</h3>
+    <p class="c-subscribe-box__desc">You like articles of the blog? Sign up for updates via email.</p>
+    <form class="c-form c-form--accent c-subscribe-box__form">
+      <input class="u-align-center" type="email" placeholder="name@cool.internet"/>
+      <input class="full-button" type="submit" value="Subscribe"/>
+    </form>-->
+  <!-- </div> 
+</div> -->
+
+</div>
+

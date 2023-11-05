@@ -1,0 +1,361 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import url('https://unpkg.com/bootstrap@5.0.1/dist/css/bootstrap.min.css'); */
+
+/* .form-group label {
+
+    color: white;
+    font-size: 16px;
+
+ } */
+
+ @font-face {
+  font-family: 'Niconne';
+  font-style: normal;
+  font-weight: 400;
+  font-display: auto;
+  src: url("/src/assets/Niconne-Regular.ttf") format('truetype');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Niconne&display=swap');
+
+ .ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948; /* green */
+  }
+  
+  .ng-invalid:not(form)  {
+    border-left: 5px solid #a94442; /* red */
+  }
+  
+  .alert div {
+    background-color: #fed3d3;
+    color: #820000;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .form-group {
+    /* margin-bottom: 1rem; */
+  }
+  
+  label {
+    display: block;
+    // margin-bottom: .5rem;
+  }
+
+  .text-danger {
+
+    display: inline-block;
+    position: relative;
+    background-color: red;
+    border-bottom-right-radius:5px;
+    border-bottom-left-radius: 5px;
+    padding: 2px 5px;
+    color: black !important;
+    top: -10px;
+    
+  }
+
+text[type="email"] .text-danger {
+
+    top: -10px;
+}
+
+.form-control {
+    border: none;
+    border-left: none;
+}
+
+.form-control :blur {
+   border: none;
+}
+
+.no-border {
+    border: 0 !important;
+    box-shadow: none;  /* You may want to include this as bootstrap applies these styles too */
+    
+}
+
+.no-border:focus {
+
+    border-left: blue 5px solid !important;
+    box-shadow: none;
+}
+
+.error {
+
+    border-left: red 5px solid !important;
+    box-shadow: none;
+}
+
+.good-to-go {
+
+    border-left: green 5px solid !important;
+    box-shadow: none;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Raleway:400");
+
+* {
+	box-sizing: border-box;
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 90deg;
+  inherits: true;
+}
+
+@property --gradX {
+  syntax: '<percentage>';
+  initial-value: 50%;
+  inherits: true;
+}
+
+@property --gradY {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: true;
+}
+
+.outer-box {
+  font-family: Raleway, sans-serif;
+	text-align: center;
+	margin: 0;
+	padding: 1rem;
+	background-color: rgba(10, 12, 18, 1);
+	color: white;
+	min-height: 100vh;
+  height: 100%;
+  width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center; 
+}
+
+p {
+	margin: 0;
+}
+
+:root {
+	--d: 2500ms;
+	--angle: 90deg;
+	--gradX: 100%;
+	--gradY: 50%;
+	--c1: rgba(168, 239, 255, 1);
+	--c2: rgba(168, 239, 255, 0.1);
+}
+
+.wrapper {
+	min-width: min(30rem, 100%);
+}
+
+.box {
+	font-size: 3vw;
+	margin: max(1rem, 3vw);
+	border: 0.35rem solid;
+	padding: 3vw;
+	border-image: conic-gradient(from var(--angle), var(--c2), var(--c1) 0.1turn, var(--c1) 0.15turn, var(--c2) 0.25turn) 30;
+	animation: borderRotate var(--d) linear infinite forwards;
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ff5db1+0,ffadd7+54,ef017c+100 */
+
+}
+
+.box:nth-child(2) {
+	border-image: radial-gradient(ellipse at var(--gradX) var(--gradY), var(--c1), var(--c1) 10%, var(--c2) 40%) 30;
+	animation: borderRadial var(--d) linear infinite forwards;
+
+}
+
+@keyframes borderRotate {
+	100% {
+		--angle: 420deg;
+	}
+}
+
+@keyframes borderRadial {
+	20% {
+		--gradX: 100%;
+		--gradY: 50%;
+	}
+	40% {
+		--gradX: 100%;
+		--gradY: 100%;
+	}
+	60% {
+		--gradX: 50%;
+		--gradY: 100%;
+	}
+	80% {
+		--gradX: 0%;
+		--gradY: 50%;
+	}
+	100% {
+		--gradX: 50%;
+		--gradY: 0%;
+	}
+}
+
+// Global Variables
+/* :root {
+  --color-first          : #65587f;
+  --color-second         : #f18867;
+  --color-third          : #e85f99;
+  --color-forth          : #50bda1;
+  --block-width          :   300px;
+  --block-height         :   270px;
+  --border-width         : .625rem;
+  --border-radius-outer  :     8px;
+  --border-radius-inner  : calc(var(--border-radius-outer) / 2);
+  --font-plain           : 'IBM Plex Sans', sans-serif;
+  --font-special         : 'Fredoka One', sans-serif;
+ 
+  box-sizing: border-box;
+  line-height: 1.4
+}
+
+*, *:before, *:after { box-sizing: inherit }
+
+body {
+  background: hsl(0, 0%, 95%);
+  color: #5e5e5e;
+  font-family: var(--font-plain);
+  height: 100vh;
+  display: flex;
+  justify-content: center; align-items: center;
+}
+
+.rainbow {
+  width :  100%;
+  height:  100%;
+  animation: o-rotate-360 linear 8s infinite;
+
+  span {
+    display: block;
+    width: 100%; height: 100%;
+    position: relative;
+    transform: translate(-50%, -50%);
+
+    &:after {
+      display: block;
+      content: "";
+      width: 100%; height: 100%;
+      position: absolute;
+      left: 100%;
+    }
+
+    &:first-child {
+                background: var(--color-first);
+      &:after { background: var(--color-second) }
+    }
+
+    &:last-child {
+                background: var(--color-third);
+      &:after { background: var(--color-forth) }
+    }
+  }
+}
+
+
+// Components
+
+.c-subscribe-box {
+  width :  var(--block-width);
+  height:  var(--block-height);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 40px -10px rgba(0,64,128,.2);
+  border-radius: var(--border-radius-outer);
+
+  &__wrapper {
+    width : calc(100% - var(--border-width));
+    height: calc(100% - var(--border-width));
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 1.2rem 1rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--border-radius-inner);
+  }
+  
+  &__title {
+    font-size: 1.6rem;
+  }
+  
+  &__desc {
+    font-size: .935rem;
+    margin: .7rem auto 1.8rem;
+    max-width: 240px;
+  }
+  
+  &__form {
+    margin-top: auto;
+  }
+}
+
+.c-form {
+  &--accent {
+    input {      
+      &:hover, &:active, &:focus {
+        border-color: var(--color-third); // accent color
+        box-shadow: 0 0 0 3px hsla(335, 75%, 64%, .25)
+      }
+    }
+
+    [type=submit] { 
+      background: var(--color-third);
+      border-color: var(--color-third);
+      color: #fff;
+    }
+  }
+}
+
+
+// Objects
+
+@keyframes o-rotate-360 {
+  0% { transform: rotate(0) }
+
+  100% { transform: rotate(360deg) }
+}
+
+
+// Elements
+
+[type=submit] { 
+  margin-bottom: 0;
+  font-family: var(--font-special);
+  font-weight: normal;
+  letter-spacing: .015em;
+  font-size: 1.1rem;
+  
+  &:active {
+    transform: scale(.97);
+  }
+}
+
+input {
+  font-family: inherit;
+  color: inherit;
+  outline: none;
+  font-size: 93%;
+  transition: all 300ms ease;
+}
+
+h3 {
+  margin: 0;
+  letter-spacing: -.015em;
+  font-family: var(--font-special);
+  font-weight: normal;
+  line-height: 1.4;
+}
+
+
+// Utilities 
+.u-align-center {
+  text-align: center;
+}
+ */
