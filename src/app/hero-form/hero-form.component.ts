@@ -4,30 +4,34 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
+  AfterViewInit
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Hero } from '../hero';
 import {
   FormsModule,
-  FormBuilder,
   FormGroup,
   Validators,
   FormControl,
   ValidatorFn,
   ValidationErrors,
-  AbstractControl,
+  AbstractControl
 } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+//import { ContactService } from '../contact.service';
 @Component({
   selector: 'app-contact-form',
   templateUrl: './hero-form.component.html',
   styleUrls: ['./hero-form.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  encapsulation: ViewEncapsulation.None,
-})
-export class HeroFormComponent implements OnInit {
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule],
+  encapsulation: ViewEncapsulation.None
 
+})
+export class HeroFormComponent implements OnInit, AfterViewInit {
+
+  //https://us6.api.mailchimp.com/3.0/ 
   @ViewChild('contactForm') myForm!: FormGroup;
   @ViewChild('firstNameTemplateVariable') firstNameChildElement!: ElementRef;
   @ViewChild('lastNameTemplateVariable') lastNameChildElement!: ElementRef;
@@ -42,7 +46,7 @@ export class HeroFormComponent implements OnInit {
   public changeCSSBorder(
     elemRef: ElementRef,
     formControl: FormControl
-  ): Boolean {
+  ) {
 
     if (elemRef.nativeElement.value.length <= 0 && !formControl.valid) {
 
@@ -50,28 +54,28 @@ export class HeroFormComponent implements OnInit {
       elemRef.nativeElement.classList.remove('good-to-go');
       elemRef.nativeElement.classList.remove('no-border');
       elemRef.nativeElement.classList.add('error');
-      return true;
+      //return true;
 
     } else if (elemRef.nativeElement.value.length > 0 && formControl.valid) {
 
       elemRef.nativeElement.classList.remove('error');
       elemRef.nativeElement.classList.remove('no-border');
       elemRef.nativeElement.classList.add('good-to-go');
-      return true;
+      //return true;
 
     } else if (elemRef.nativeElement.value.length > 0 && !formControl.valid) {
 
       elemRef.nativeElement.classList.remove('good-to-go');
       elemRef.nativeElement.classList.remove('no-border');
       elemRef.nativeElement.classList.add('error');
-      return true;
+      //return true;
 
     } 
     else 
      {
       elemRef.nativeElement.classList.add('no-border');
       console.log('this condition does not exist');
-      return false;
+      //return false;
     } 
   }
 
@@ -116,13 +120,24 @@ export class HeroFormComponent implements OnInit {
 
     this.charachtersCount = this.value ? this.value.length : 0;
     this.counter = `${this.charachtersCount}/${this.maxlength}`;
+
+    
+
+  }
+
+  ngAfterViewInit(): void {
+    this.commentChildElement.nativeElement.classList.remove('error');
+    this.commentChildElement.nativeElement.classList.remove('no-border');
+    this.commentChildElement.nativeElement.classList.add('good-to-go');
   }
 
   onSubmit() {
   
     if (this.form.valid) {
       this.submitted = true;
+      this.sendMail(this.firstName.value, this.lastName.value, this.email.value, this.comment.value)
     } else {
+
     }
 
     if (this.form.valid) console.log('this form is valid');
@@ -132,11 +147,36 @@ export class HeroFormComponent implements OnInit {
   public onValueChange(event: Event): void {
 
     let text = (event.target as HTMLInputElement).value
-    
     this.charachtersCount = text.length;
-   
     this.counter = `${this.charachtersCount}/${this.maxlength}`; 
   }
+
+  sendMail(firstName: string, lastName: string, email: string, comment: string) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.set('Authorization', 'Basic ' + btoa('5bde5d6e463702f2e6737496315a1bb3'+":" +'674d0fac8b1b951435369385bbb866f4'));
+  
+    const data = JSON.stringify({
+      "Messages": [{
+        "From": {"Email": "<YOUR EMAIL>", "FirstName": "<YOUR NAME>"},
+        "To": [{"Email": email, "Name": firstName + " " +  lastName}],
+        "TextPart": comment
+      }]
+    });
+  
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: data,
+    };
+  
+    fetch("https://api.mailjet.com/v3.1/send", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
+  
+  //sendMail('Test Name',"<YOUR EMAIL>",'Test Subject','Test Message')
 }
 
 export function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {

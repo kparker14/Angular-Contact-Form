@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ContactService {
+import { Observable, of } from 'rxjs';
 
-  constructor() { }
+import { Hero } from './hero';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class HeroService {
+
+ // constructor(private messageService: MessageService) { }
+
 }
